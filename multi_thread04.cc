@@ -33,18 +33,17 @@ void task1() {
 void task2() {
     int data = 0;
     while (true) {
-        std::unique_lock<std::mutex> lock(mtx);
-
+        std::unique_lock<std::mutex> lock(mtx);   
         while (q.empty()) {
             cv.wait(lock);
             // lock.unlock();
             // cv.wait();
         }
 
-        data = q.front();
+        q.pop_front();
+        std::cout << "Get value from que:" << data << std::endl;       data = q.front();
         q.pop_front();
         std::cout << "Get value from que:" << data << std::endl;
-
         // std::this_thread::sleep_for(std::chrono::microseconds(10));
 
     }
